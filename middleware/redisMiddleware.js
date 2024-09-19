@@ -6,7 +6,9 @@ exports.cacheMiddleware = (keyInitial) => {
       const key = `${keyInitial}`;
       // let data = await redisClient.hGet("allUsers", key);
       // const data = await redisClient.hGetAll(`user:${email}`);
-      let data = JSON.parse(await redisClient.get(key));
+      // let data = JSON.parse(await redisClient.get(key));
+      let data = await redisClient.json.get(key);
+
       if (data) {
         console.log("cache hitted");
         res.json({ response: true, user: data });

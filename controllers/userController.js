@@ -121,8 +121,11 @@ exports.getAllUser = async (req, res) => {
     //   const { username, phone, email } = user;
     //   return { username, phone, email };
     // });
-    await redisClient.SETEX("allUsers", 60, JSON.stringify(users));
     // await redisClient.SETEX("allUsers", 60, {username, phone, email});
+    
+    // await redisClient.SETEX("allUsers", 60, JSON.stringify(users));
+    await redisClient.json.set("allUsers", "$", JSON.stringify(users));
+
 
     if (!users) {
       res.status(400).json({ message: "No Users Found" });
