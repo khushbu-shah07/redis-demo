@@ -122,9 +122,11 @@ exports.getAllUser = async (req, res) => {
     //   return { username, phone, email };
     // });
     // await redisClient.SETEX("allUsers", 60, {username, phone, email});
-    
+
     // await redisClient.SETEX("allUsers", 60, JSON.stringify(users));
-    await redisClient.json.set("allUsers", "$", JSON.stringify(users));
+    await redisClient.json.SET("allUsers", "$", JSON.stringify(users));
+    await redisClient.expire("allUsers", 60);
+    // await redisClient.HMGET("allUsers", "users", JSON.stringify(users));
 
 
     if (!users) {
